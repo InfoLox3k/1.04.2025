@@ -1,0 +1,17 @@
+import flet as ft
+
+def main(page: ft.Page):
+    page.title = "Калькулятор"
+
+    input_field = ft.TextField(label="Введите выражение")  # Поле ввода
+    output_text = ft.Text()  # Место для вывода текста
+
+    def on_button_click(e):
+        output_text.value = f"Результат: {eval(input_field.value)}"  # Показываем введенный текст
+        page.update()  # Обновляем страницу
+
+    button = ft.ElevatedButton("Ввод", on_click=on_button_click)
+
+    page.add(input_field, button, output_text)  # Добавляем элементы на страницу
+
+ft.app(target=main)
