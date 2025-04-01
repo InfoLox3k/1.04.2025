@@ -1,0 +1,47 @@
+import flet as ft
+
+
+def main(page: ft.Page):
+    page.title = "Калькулятор"
+
+    # Поля для ввода чисел
+    num1 = ft.TextField(label="Число 1", width=150)
+    num2 = ft.TextField(label="Число 2", width=150)
+
+    # Поле для вывода результата
+    result_text = ft.Text("Результат: ")
+
+    # Функция обработки нажатия кнопок
+    def calculate(e):
+        n1 = float(num1.value)  # Получаем первое число
+        n2 = float(num2.value)  # Получаем второе число
+        operation = e.control.text  # Узнаем, какую кнопку нажали
+
+        # Вычисляем результат
+        if operation == "+":
+            result = n1 + n2
+        elif operation == "-":
+            result = n1 - n2
+        elif operation == "*":
+            result = n1 * n2
+        elif operation == "/":
+            result = n1 / n2
+
+        result_text.value = f"Результат: {result}"  # Обновляем результат
+
+        page.update()  # Обновляем интерфейс
+
+    # Кнопки операций
+    buttons = [
+        ft.ElevatedButton(op, on_click=calculate) for op in ["+", "-", "*", "/"]
+    ]
+
+    # Добавляем все элементы в окно
+    page.add(
+        num1, num2,
+        ft.Row(buttons, alignment=ft.MainAxisAlignment.CENTER),
+        result_text
+    )
+
+
+ft.app(target=main)
